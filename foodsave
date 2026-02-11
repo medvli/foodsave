@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodSave - Réduire le gaspillage alimentaire ensemble</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d7a3e;
+            --light-green: #4caf50;
+            --accent-green: #81c784;
+            --dark-green: #1b5e20;
+            --cream: #f5f5dc;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --orange: #ff9800;
+            --blue: #1976d2;
+            --shadow: rgba(45, 122, 62, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f5f5dc 0%, #e8f5e9 100%);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px var(--shadow);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-green);
+            letter-spacing: -1px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            box-shadow: 0 4px 15px rgba(45, 122, 62, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(45, 122, 62, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 90px;
+            padding: 5rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(129, 199, 132, 0.2), transparent);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--dark-green);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        /* Profile Selection */
+        .profile-section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 4rem;
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(45, 122, 62, 0.25);
+        }
+
+        .profile-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .profile-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-card p {
+            color: var(--text-dark);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Dashboard Interface */
+        .dashboard {
+            display: none;
+            padding: 5rem 5%;
+            margin-top: 90px;
+        }
+
+        .dashboard.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .dashboard-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* AI Analysis Section */
+        .ai-section {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            padding: 2rem;
+            border-radius: 20px;
+            color: white;
+            margin: 2rem 0;
+        }
+
+        .ai-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-recommendations {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .recommendation-item {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recommendation-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .impact-item {
+            position: relative;
+        }
+
+        .impact-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .impact-label {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Product List */
+        .product-list {
+            margin-top: 2rem;
+        }
+
+        .product-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: translateX(5px);
+        }
+
+        .product-info h4 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .btn-reserve {
+            background: var(--primary-green);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reserve:hover {
+            background: var(--dark-green);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-green);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .profiles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-buttons {
+                gap: 0.5rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideInRight 0.5s ease-out;
+            z-index: 2000;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Add Product Form */
+        .add-product-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo-container">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8IS0tIEJvbCAtLT4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjMwIiByPSIxMiIgc3Ryb2tlPSIjMTk3NmQyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz4KICA8IS0tIExpZ25lIGJhcyAtLT4KICA8cGF0aCBkPSJNIDE1IDQyIFEgMjUgNDUgMzUgNDIiIHN0cm9rZT0iI2ZmOTgwMCIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CiAgPCEtLSBGZXVpbGxlIC0tPgogIDxwYXRoIGQ9Ik0gMjUgMTAgUSAyOCA4IDMyIDEwIFEgMzUgMTMgMzIgMTggUSAzMCAyMiAyNSAyMCBRIDIzIDE4IDI1IDEwIFoiIGZpbGw9IiM0Y2FmNTAiLz4KICA8IS0tIE5lcnZ1cmUgZmV1aWxsZSAtLT4KICA8cGF0aCBkPSJNIDI1IDEyIFEgMjYgMTUgMjcgMTgiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4=" alt="FoodSave Logo" class="logo-img">
+                <span class="logo-text">FoodSave</span>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showHome()">Accueil</button>
+                <button class="btn btn-primary" onclick="scrollToProfiles()">Commencer</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Ensemble contre le gaspillage alimentaire</h1>
+            <p>Connectez commerçants, associations et bénéficiaires pour réduire les déchets et aider ceux qui en ont besoin</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToProfiles()">Rejoindre FoodSave</button>
+                <button class="btn btn-secondary" onclick="scrollToImpact()">Notre impact</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Selection Section -->
+    <section class="profile-section" id="profiles">
+        <h2 class="section-title">Choisissez votre profil</h2>
+        <p class="section-subtitle">Chaque profil donne accès à une interface adaptée à vos besoins</p>
+        
+        <div class="profiles-grid">
+            <div class="profile-card" onclick="selectProfile('commercant')">
+                <div class="profile-icon">🏪</div>
+                <h3>Commerçant</h3>
+                <p>Réduisez vos invendus grâce à l'IA et donnez une seconde vie à vos produits</p>
+            </div>
+
+            <div class="profile-card" onclick="selectProfile('association')">
+                <div class="profile-icon">🤝</div>
+                <h3>Association</h3>
+                <p>Recevez des notifications pour collecter les surplus alimentaires</p>
+            </div>
+
+            <div class="profile-card" onclick="selectProfile('beneficiaire')">
+                <div class="profile-icon">👤</div>
+                <h3>Bénéficiaire</h3>
+                <p>Accédez à des produits de qualité à prix solidaire ou gratuitement</p>
+            </div>
+
+            <div class="profile-card" onclick="selectProfile('collectivite')">
+                <div class="profile-icon">🏛️</div>
+                <h3>Collectivité</h3>
+                <p>Suivez l'impact de votre territoire et coordonnez les actions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commerçant Dashboard -->
+    <div class="dashboard" id="dashboard-commercant">
+        <div class="dashboard-header">
+            <h2>🏪 Tableau de bord Commerçant</h2>
+            <p>Bienvenue sur votre espace de gestion des surplus</p>
+        </div>
+
+        <!-- AI Analysis Section -->
+        <div class="ai-section">
+            <h3>🤖 Analyse Intelligente IA</h3>
+            <p>Notre IA analyse vos ventes passées et prédit vos surplus alimentaires</p>
+            
+            <div class="ai-recommendations">
+                <h4 style="margin-bottom: 1rem;">📊 Recommandations basées sur vos données :</h4>
+                
+                <div class="recommendation-item">
+                    <div>
+                        <strong>🥖 Boulangerie</strong>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">example Surplus prévu : 15 baguettes ce soir</p>
+                    </div>
+                    <button class="btn-reserve" onclick="showToast('Publication automatique activée')">Publier</button>
+                </div>
+
+                <div class="recommendation-item">
+                    <div>
+                        <strong>🥗 Produits frais</strong>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">example 10 salades à donner avant 18h</p>
+                    </div>
+                    <button class="btn-reserve" onclick="showToast('Don proposé aux associations proches')">Donner</button>
+                </div>
+
+                <div class="recommendation-item">
+                    <div>
+                        <strong>🍎 Fruits & Légumes</strong>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">example 5kg de pommes - Prix solidaire recommandé</p>
+                    </div>
+                    <button class="btn-reserve" onclick="showToast('Prix solidaire activé')">Prix solidaire</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Product Form -->
+        <div class="add-product-form">
+            <h3 style="color: var(--primary-green); margin-bottom: 1.5rem;">➕ Ajouter un surplus manuellement</h3>
+            
+            <form onsubmit="addProduct(event)">
+                <div class="form-group">
+                    <label>Nom du produit</label>
+                    <input type="text" placeholder="Ex: Pain complet" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Quantité</label>
+                    <input type="number" placeholder="Ex: 10" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Date de péremption</label>
+                    <input type="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Action recommandée</label>
+                    <select>
+                        <option>Don à une association</option>
+                        <option>Prix solidaire</option>
+                        <option>Redistribution</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Publier le surplus</button>
+            </form>
+        </div>
+
+        <!-- Stats -->
+        <div class="dashboard-grid" style="margin-top: 3rem;">
+            <div class="stat-card">
+                <div class="stat-icon">🍽️</div>
+                <div class="stat-number">248</div>
+                <div class="stat-label">Repas sauvés ce mois</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">♻️</div>
+                <div class="stat-number">ex 156kg</div>
+                <div class="stat-label">Déchets évités</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🌍</div>
+                <div class="stat-number">ex 312kg</div>
+                <div class="stat-label">CO₂ économisé</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Association Dashboard -->
+    <div class="dashboard" id="dashboard-association">
+        <div class="dashboard-header">
+            <h2>🤝 Tableau de bord Association</h2>
+            <p>Gérez vos collectes et aidez plus de personnes</p>
+        </div>
+
+        <div class="ai-section">
+            <h3>🔔 Notifications en temps réel</h3>
+            <p>L'IA vous envoie les opportunités les plus pertinentes selon votre localisation et capacité</p>
+        </div>
+
+        <div class="product-list">
+            <h3 style="color: var(--primary-green); margin-bottom: 1.5rem;">📦 Produits disponibles à proximité</h3>
+            
+            <div class="product-item">
+                <div class="product-info">
+                    <h4>ex 🥖 15 Baguettes - Boulangerie Dupont</h4>
+                    <div class="product-meta">
+                        <span>ex 📍 0.5 km</span>
+                        <span>ex ⏰ Disponible jusqu'à 20h</span>
+                        <span>ex 🔥 Urgent</span>
+                    </div>
+                </div>
+                <button class="btn-reserve" onclick="reserveProduct('baguettes')">Réserver</button>
+            </div>
+
+            <div class="product-item">
+                <div class="product-info">
+                    <h4>ex 🥗 20 Salades fraîches - Supermarché Bio+</h4>
+                    <div class="product-meta">
+                        <span>ex 📍 1.2 km</span>
+                        <span>ex ⏰ Disponible jusqu'à 18h</span>
+                    </div>
+                </div>
+                <button class="btn-reserve" onclick="reserveProduct('salades')">Réserver</button>
+            </div>
+
+            <div class="product-item">
+                <div class="product-info">
+                    <h4>ex 🍎 8kg Fruits variés - Marché Central</h4>
+                    <div class="product-meta">
+                        <span>ex 📍 2.1 km</span>
+                        <span>ex ⏰ Disponible demain</span>
+                    </div>
+                </div>
+                <button class="btn-reserve" onclick="reserveProduct('fruits')">Réserver</button>
+            </div>
+        </div>
+
+        <div class="dashboard-grid" style="margin-top: 3rem;">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number">ex 842</div>
+                <div class="stat-label">Personnes aidées</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-number">ex 156</div>
+                <div class="stat-label">Collectes réalisées</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number">ex 4.9</div>
+                <div class="stat-label">Note de satisfaction</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bénéficiaire Dashboard -->
+    <div class="dashboard" id="dashboard-beneficiaire">
+        <div class="dashboard-header">
+            <h2>👤 Tableau de bord Bénéficiaire</h2>
+            <p>Découvrez les produits disponibles près de chez vous</p>
+        </div>
+
+        <div class="product-list">
+            <h3 style="color: var(--primary-green); margin-bottom: 1.5rem;">🛒 Produits disponibles</h3>
+            
+            <div class="product-item">
+                <div class="product-info">
+                    <h4>🥖 Pain complet - Boulangerie Amayma</h4>
+                    <div class="product-meta">
+                        <span>ex📍 0.3 km</span>
+                        <span>ex💰 1dt(Prix solidaire)</span>
+                        <span>✅ Disponible</span>
+                    </div>
+                </div>
+                <button class="btn-reserve" onclick="reserveProduct('pain')">Réserver</button>
+            </div>
+
+            <div class="product-item">
+                <div class="product-info">
+                    <h4>🥗 Panier de légumes frais - Maraîcher Local</h4>
+                    <div class="product-meta">
+                        <span>ex 📍 0.8 km</span>
+                        <span>💰 Gratuit</span>
+                        <span>🔥 Places limitées</span>
+                    </div>
+                </div>
+                <button class="btn-reserve" onclick="reserveProduct('legumes')">Réserver</button>
+            </div>
+
+            <div class="product-item">
+                <div class="product-info">
+                    <h4>🍕 Repas préparés - Restaurant zitouna </h4>
+                    <div class="product-meta">
+                        <span>ex 📍 1.5 km</span>
+                        <span>ex 💰 2dt</span>
+                        <span>ex ⏰ 18h-20h</span>
+                    </div>
+                </div>
+                <button class="btn-reserve" onclick="reserveProduct('repas')">Réserver</button>
+            </div>
+        </div>
+
+        <div class="dashboard-grid" style="margin-top: 3rem;">
+            <div class="stat-card">
+                <div class="stat-icon">🍽️</div>
+                <div class="stat-number">42</div>
+                <div class="stat-label">Repas récupérés</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number">ex 180dt</div>
+                <div class="stat-label">Économies réalisées</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🌱</div>
+                <div class="stat-number">ex 28kg</div>
+                <div class="stat-label">Impact environnemental</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collectivité Dashboard -->
+    <div class="dashboard" id="dashboard-collectivite">
+        <div class="dashboard-header">
+            <h2>🏛️ Tableau de bord Collectivité</h2>
+            <p>Suivez l'impact de FoodSave sur votre territoire</p>
+        </div>
+
+        <div class="ai-section">
+            <h3>📊 Analyse territoriale en temps réel</h3>
+            <p>Visualisez les données agrégées de votre commune ou région</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏪</div>
+                <div class="stat-number">48</div>
+                <div class="stat-label">Commerçants partenaires</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🤝</div>
+                <div class="stat-number">ex 12</div>
+                <div class="stat-label">Associations actives</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number">ex 2,847</div>
+                <div class="stat-label">Bénéficiaires</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🍽️</div>
+                <div class="stat-number">ex 12,456</div>
+                <div class="stat-label">Repas sauvés ce mois</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">♻️</div>
+                <div class="stat-number">ex 8.2T</div>
+                <div class="stat-label">Déchets évités</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🌍</div>
+                <div class="stat-number">ex 16.4T</div>
+                <div class="stat-label">CO₂ économisé</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Section -->
+    <section class="impact-section" id="impact">
+        <h2 class="section-title">Notre Impact Global</h2>
+        <p class="section-subtitle">Ensemble, nous faisons la différence chaque jour</p>
+        
+        <div class="impact-grid">
+            <div class="impact-item">
+                <div class="impact-number" id="repas-counter">0</div>
+                <div class="impact-label">ex Repas sauvés</div>
+            </div>
+
+            <div class="impact-item">
+                <div class="impact-number" id="co2-counter">0</div>
+                <div class="impact-label">ex Tonnes de CO₂ évitées</div>
+            </div>
+
+            <div class="impact-item">
+                <div class="impact-number" id="dechets-counter">0</div>
+                <div class="impact-label">ex Tonnes de déchets réduits</div>
+            </div>
+
+            <div class="impact-item">
+                <div class="impact-number" id="personnes-counter">0</div>
+                <div class="impact-label">ex Personnes aidées</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo-container" style="justify-content: center; margin-bottom: 2rem;">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjMwIiByPSIxMiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNIDE1IDQyIFEgMjUgNDUgMzUgNDIiIHN0cm9rZT0iI2ZmOTgwMCIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0iTSAyNSAxMCBRIDI4IDggMzIgMTAgUSAzNSAxMyAzMiAxOCBRIDMwIDIyIDI1IDIwIFEgMjMgMTggMjUgMTAgWiIgZmlsbD0iIzRjYWY1MCIvPgogIDxwYXRoIGQ9Ik0gMjUgMTIgUSAyNiAxNSAyNyAxOCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==" alt="FoodSave Logo" class="logo-img">
+                <span class="logo-text" style="color: white;">FoodSave</span>
+            </div>
+            <p style="margin-bottom: 1rem;">Ensemble contre le gaspillage alimentaire</p>
+            <p style="opacity: 0.8; font-size: 0.9rem;">© released par BAYA KRICHENE,EYA ELLOUZE,MED ALI JEDIDI. 12/2025 FoodSave. Tous droits réservés.</p>
+            <p style="opacity: 0.8; font-size: 0.9rem; margin-top: 1rem;">
+                Propulsé par l'Intelligence Artificielle 🤖
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Counter Animation
+        function animateCounter(element, target, suffix = '') {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = Math.round(target) + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.round(current) + suffix;
+                }
+            }, 20);
+        }
+
+        // Initialize counters when impact section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(document.getElementById('repas-counter'), 125847);
+                    animateCounter(document.getElementById('co2-counter'), 254, 'T');
+                    animateCounter(document.getElementById('dechets-counter'), 189, 'T');
+                    animateCounter(document.getElementById('personnes-counter'), 38642);
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.impact-section'));
+
+        // Profile Selection
+        function selectProfile(profile) {
+            // Hide all dashboards
+            document.querySelectorAll('.dashboard').forEach(d => d.classList.remove('active'));
+            
+            // Hide home sections
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('profiles').style.display = 'none';
+            document.getElementById('impact').style.display = 'none';
+            
+            // Show selected dashboard
+            document.getElementById(`dashboard-${profile}`).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            showToast(`Bienvenue dans votre espace ${profile} !`);
+        }
+
+        // Show Home
+        function showHome() {
+            document.querySelectorAll('.dashboard').forEach(d => d.classList.remove('active'));
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('profiles').style.display = 'block';
+            document.getElementById('impact').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Scroll functions
+        function scrollToProfiles() {
+            document.getElementById('profiles').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToImpact() {
+            document.getElementById('impact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideInRight 0.5s ease-out reverse';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // Reserve Product
+        function reserveProduct(product) {
+            showToast(`✅ ${product} réservé avec succès ! Instructions de collecte envoyées.`);
+        }
+
+        // Add Product
+        function addProduct(event) {
+            event.preventDefault();
+            showToast('✅ Surplus publié avec succès ! L\'IA recherche les bénéficiaires appropriés...');
+            event.target.reset();
+        }
+
+        // Smooth scroll for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
